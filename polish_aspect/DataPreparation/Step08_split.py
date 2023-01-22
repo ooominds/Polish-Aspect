@@ -1,10 +1,7 @@
 import pandas as pd
-from collections import Counter
-from sklearn.model_selection import train_test_split
 import os
-import sys
 
-#dataset_type = sys.argv[1]
+
 WD = os.getcwd()
 
 

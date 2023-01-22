@@ -1,8 +1,7 @@
 import pandas as pd
-import sys
 import os
 
-# datatype = sys.argv[1]
+
 WD = os.getcwd()
 
 

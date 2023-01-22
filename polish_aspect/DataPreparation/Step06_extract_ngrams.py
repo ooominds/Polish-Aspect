@@ -4,7 +4,6 @@ from nltk.util import ngrams
 from pyndl.count import cues_outcomes
 import gzip
 import os
-import csv
 
 WD = os.getcwd()
 TEMP_DIR = 'TempData'
