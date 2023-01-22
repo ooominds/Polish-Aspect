@@ -60,7 +60,7 @@ NOTE: The original lemma provided by Araneum did not take reflexive forms into a
 
 ## contributors
 ---------------------------------------------------
-This packages is based on code written for R by Adnane Ez-zizi - date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023. Changes are listed in the ![changes file](changes.txt)
+This packages is based on code written for R by Adnane Ez-zizi - date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023.
 
 The tense-aspect annotation heuristics were provided by Dagmar Divjak.
 
