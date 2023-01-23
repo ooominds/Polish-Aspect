@@ -1,6 +1,6 @@
 import sys
-from polish_aspect.DataPreparation import *
-from polish_aspect.TrainNDL import TrainNDL
+from ndl_aspect.DataPreparation import *
+from ndl_aspect.TrainNDL import TrainNDL
 
 araneum = sys.argv[2]
 dataset_type = sys.argv[1]
