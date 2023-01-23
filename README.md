@@ -9,7 +9,7 @@ You can install the latest pip by typing "pip install pip".
 From a terminal, type "pip install ndl-polish-aspect".
 
 ## pipeline
----------------------------------------------------
+
 The pipeline.py file (found in the GitHub repository) acts as a step-by-step guide to run the code from data preparation and annotation, to model simulations, to data postprocessing and plotting.
 The script requires three input arguments: the type of stratification of the data (specify 'balanced' for balanced dataset, else 'stratified' for frequency sampling); the path to the downloaded Araneum Polonicum, and the cues you want to include, choose from:
 - 'all'
@@ -59,7 +59,7 @@ NOTE: The original lemma provided by Araneum did not take reflexive forms into a
 
 
 ## contributors
----------------------------------------------------
+
 This packages is based on code written for R by Adnane Ez-zizi - date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023.
 
 The tense-aspect annotation heuristics were provided by Dagmar Divjak.
