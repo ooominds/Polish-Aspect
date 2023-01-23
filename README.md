@@ -6,7 +6,7 @@ A package for training an NDL model to learn aspect in Polish verbs using pyndl;
 
 This should be installable from PyPi so this means it requires pip. 
 You can install the latest pip by typing "pip install pip".
-From a terminal, type "pip install ndl-aspect".
+From a terminal, type "pip install ndl-aspect". A conda environment is recommended for h5py dependencies when using Windows.
 
 ## pipeline
 
