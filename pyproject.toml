@@ -1,43 +1,7 @@
 [build-system]
-requires = ["setuptools"]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "pandas"
+]
 build-backend = "setuptools.build_meta"
-
-[project]
-name = "polish-aspect"
-version = "0.0.1"
-requires-python = ">=3.8"
-dependencies = ["certifi==2022.12.7",
-"cftime==1.6.2",
-"charset-normalizer==3.0.1",
-"click==8.1.3",
-"colorama==0.4.6",
-"contourpy==1.0.6",
-"cycler==0.11.0",
-"Cython==0.29.33",
-"docopt==0.6.2",
-"fonttools==4.38.0",
-"idna==3.4",
-"joblib==1.2.0",
-"kiwisolver==1.4.4",
-"matplotlib==3.6.3",
-"netCDF4==1.6.2",
-"nltk==3.8.1",
-"numpy==1.24.1",
-"packaging==23.0",
-"pandas==1.5.2",
-"Pillow==9.4.0",
-"pipreqs==0.4.11",
-"pyndl==1.1.1",
-"pyparsing==3.0.9",
-"python-dateutil==2.8.2",
-"pytz==2022.7",
-"threadpoolctl==3.1.0",
-"tqdm==4.64.1",
-"urllib3==1.26.14",
-"xarray==2022.12.0",
-"yarg==0.1.9"]
-
-
-
-[project.scripts]
-run = "polish_aspect.pipeline:process"
