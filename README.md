@@ -6,11 +6,11 @@ A package for training an NDL model to learn aspect in Polish verbs using pyndl;
 
 To use this package, please install the dependencies via PyPI and then clone the GitHub repository.
 You can install the latest pip by typing "pip install pip".
-From a terminal, type "pip install ndl-aspect". A conda environment is recommended for h5py dependencies when using Windows.
+From a terminal, type "pip install ndl-aspect". 
 
 ## pipeline
 
-The pipeline.py file (found in the GitHub repository) acts as a step-by-step guide to run the code from data preparation and annotation, to model simulations, to data postprocessing and plotting.
+The pipeline.py file (found in the GitHub repository) acts as a step-by-step guide to run the code from data preparation and annotation, to model simulations.
 The script requires three input arguments: the type of stratification of the data (specify 'balanced' for balanced dataset, else 'stratified' for frequency sampling); the path to the downloaded Araneum Polonicum, and the cues you want to include, choose from:
 - 'all'
 - 'superlemmas'
