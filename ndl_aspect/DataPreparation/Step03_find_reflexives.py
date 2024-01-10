@@ -1,9 +1,12 @@
 import pandas as pd
+import os
 
+WD = os.getcwd()
 
 def contains_sie(sent, pos, verb, lemmas):
-    if ' ' in pos:
-        pos = pos.split()[-1]
+    if isinstance(pos, str):
+        if ' ' in pos:
+            pos = pos.split()[-1]
     if verb in lemmas:
         pos = int(float(pos))
         words = sent.split()
@@ -31,10 +34,10 @@ def contains_sie(sent, pos, verb, lemmas):
 
 
 def fix_pos(pos):
-    if ' ' in pos:
-        return pos.split()[-1]
+    if len(str(pos).split()) > 0:
+        return int(float(str(pos).split()[-1]))
     else:
-        return pos
+        return int(float(pos))
 
 
 def fix_infinitive(infinitive):
@@ -65,13 +68,13 @@ def tag_reflexives():
     sample = pd.read_csv('Data/tagged_sentences.gz',
                          usecols=['SentenceID', 'Sentence', 'num_verbs', 'position', 'verb', 'infinitive', 'TA_Tags'])
     lemmas = list()
-    with open('DownloadedData/lemmas_sie.txt', 'r') as l:
+    with open(WD + '/ndl_aspect/DataPreparation/DownloadedData/lemmas_sie.txt', 'r') as l:
         lines = l.readlines()
         for line in lines:
             lemmas.append(line.strip().upper())
     sample['infinitive'] = sample.apply(lambda x: x.loc['infinitive'].upper(), axis=1)
     sample['infinitive'] = sample.apply(lambda x: fix_infinitive(x.loc['infinitive']), axis=1)
-    sample['pos'] = sample.apply(lambda x: fix_pos(x.loc['pos']), axis=1)
+    #sample['position'] = sample.apply(lambda x: fix_pos(x.loc['position']), axis=1)
     sample['SIE'] = sample.apply(lambda x: contains_sie(x.loc['Sentence'], x.loc['position'], x.loc['infinitive'], lemmas), axis=1)
     sample['infinitive'] = sample.apply(lambda x: replace_infinitive(x.loc['infinitive'], x.loc['SIE']), axis=1)
     sample.to_csv('Data/tagged_with_sie.gz', index=False)

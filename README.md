@@ -4,7 +4,7 @@ A package for training an NDL model to learn aspect in Polish verbs using pyndl;
 
 ## installation
 
-This should be installable from PyPi so this means it requires pip. 
+To use this package, please install the dependencies via PyPI and then clone the GitHub repository.
 You can install the latest pip by typing "pip install pip".
 From a terminal, type "pip install ndl-aspect". A conda environment is recommended for h5py dependencies when using Windows.
 
@@ -60,6 +60,10 @@ NOTE: The original lemma provided by Araneum did not take reflexive forms into a
 
 ## contributors
 
+
+#### Example Run 
+- To run the code: python pipeline.py --STRATIFICATION --PATH_TO_LOCAL_CORPUS_FILE --TYPES_OF_CUES
+-  python pipeline.py stratified araneum_sample.txt all
 This packages is based on code written for R by Adnane Ez-zizi - date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023.
 
 The tense-aspect annotation heuristics were provided by Dagmar Divjak.

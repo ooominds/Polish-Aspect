@@ -1,13 +1,16 @@
 import os
 import pandas as pd
 from collections import OrderedDict
+import numpy as np
 
 WD = os.getcwd()
-os.mkdir('Data')
+#os.mkdir('Data')
 
 # araneum = sys.argv[2]
-output = WD + 'Data/extracted_sentences.csv'
+output = WD + '/Data/extracted_sentences.csv'
 
+def add_length(sent):
+    return len(sent.split())
 
 def extract(araneum):
     sents = OrderedDict()
@@ -97,7 +100,21 @@ def extract(araneum):
                 sentences_dict[i]["verbs_lemmas_{}".format(j + 1)] = str(features[3][j])
                 sentences_dict[i]["verbs_pos_{}".format(j + 1)] = features[1][j]
                 sentences_dict[i]["verbs_tags_{}".format(j + 1)] = features[2][j]
-    sentences_df = pd.DataFrame.from_dict(sentences_dict, orient="index")
-    print(sentences_df.shape)
+    sents = pd.DataFrame.from_dict(sentences_dict, orient="index")
+
+
+    sents['sentence_length'] = sents.apply(lambda x: add_length(x.loc['Sentence']), axis=1)
+
+    cols = list(sents.columns)
+    cols.insert(1, cols.pop(cols.index('sentence_length')))
+    sents = sents.loc[:, cols]
+    sents['SentenceID'] = np.arange(1, (len(sents) + 1))
+
+    # Move the columns before the 'Sentence' column
+    cols = list(sents.columns)
+    cols.insert(0, cols.pop(cols.index('SentenceID')))
+    sents = sents.loc[:, cols]
+    groups = [sents for _, sents in sents.groupby('SentenceID')]
+    print(sents.shape)
     with open(output, "w") as res_csv:
-        sentences_df.to_csv(res_csv, sep=",", index=False)
+        sents.to_csv(res_csv, sep=",", index=False)

@@ -17,7 +17,7 @@ TARGETS_3G = "Data/3grams_touse.csv"
 TARGETS_4G = "Data/4grams_touse.csv"
 ALL_CUES = 'Data/all_cues_to_use.csv'
 LEMMAS = 'Data/superlemmas.csv'
-TENSES = 'DownloadedData/all_tenses.csv'
+TENSES = 'ndl_aspect/DataPreparation/DownloadedData/all_tenses.csv'
 
 N = 10000
 
@@ -84,12 +84,14 @@ def prepare_all_cues():
     ngrams.rename(columns={'ngram': 'cue'}, inplace=True)
     infinitives.rename(columns={'lemmas': 'cue'}, inplace=True)
     tenses = pd.read_csv(TENSES)
+    #tenses.drop(columns=['index'], inplace=True)
+    tenses.rename(columns={'tense':'cue'}, inplace=True)
     tenses.to_csv('Data/all_tenses_to_use.csv', index=False, header=False)
-    tenses.drop(columns=['index'], inplace=True)
+
     # all_cues_df = infinitives_df.copy()
     all_cues_df = ngrams.copy()
     all_cues_df = all_cues_df.append([infinitives.copy(), tenses.copy()])
-
+    #print(all_cues_df)
     all_cues_df['index'] = np.arange(1, (len(all_cues_df) + 1))
 
     all_cues_df.to_csv(ALL_CUES, sep=',', index=False, header=False)

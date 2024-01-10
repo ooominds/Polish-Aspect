@@ -5,7 +5,7 @@ WD = os.getcwd()
 
 
 def extract_lemmas():
-    sents = pd.read_csv(WD + 'Data/sample.gz')
+    sents = pd.read_csv(WD + '/Data/sample.gz')
 
     cooc_freqs = sents.groupby(["SuperLemmas", "TA_Tags"]).size().reset_index(name="Freq")
     print(cooc_freqs.shape)
@@ -28,5 +28,5 @@ def extract_lemmas():
     infinitives = cooc_freqs.index.to_frame()
 
     ### Export the co-occurence and infinitives datasets
-    cooc_freqs.to_csv(WD + 'Data/coocc_freq_superlemmas.csv', sep=',')
-    infinitives.to_csv(WD + 'Data/superlemmas.csv', sep=',', header=False, index=False)
+    cooc_freqs.to_csv(WD + '/Data/coocc_freq_superlemmas.csv', sep=',')
+    infinitives.to_csv(WD + '/Data/superlemmas.csv', sep=',', header=False, index=False)

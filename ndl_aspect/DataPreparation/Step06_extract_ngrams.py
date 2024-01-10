@@ -7,9 +7,10 @@ import os
 
 WD = os.getcwd()
 TEMP_DIR = 'TempData'
+os.mkdir('TempData')
 NUM_THREADS = 4
-        
-        
+
+
 def remove_punc_generator(string):
     punc = '''”„–…!()-[]{};:'"\,<>./?@#$%^&*_~'''
     for ele in string:
@@ -20,10 +21,11 @@ def remove_punc_generator(string):
             string = string.replace(ele, "")
             string = string.replace("  ", " ")
     yield string
-    
-    
+
+
 def extract_context(sent, pos):
     words = sent.split()
+    pos = str(pos)
     if len(pos.split()) == 1:
         pos = int(float(pos))
         context = words[:pos] + words[pos:]
@@ -33,13 +35,13 @@ def extract_context(sent, pos):
         context = words[:p1-1] + words[p1:p2-1] + words[p2:]
     context = ' '.join(context)
     return next(remove_punc_generator(context))
-    
+
 def create_ngram_cues(s, n, sep_s = " ", sep_words = "#", sep_ngrams = '_'):
     words = [w for w in s.split(sep_s) if w != ""]
-    
+
     s_ngrams = []
     s_ngrams.extend(list(ngrams(words, n)))
-    
+
     return sep_ngrams.join([sep_words.join(ngram) for ngram in s_ngrams])
 
 

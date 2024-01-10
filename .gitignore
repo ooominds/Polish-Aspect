@@ -9,3 +9,5 @@ setup.cfg
 pyproject.toml
 venv/
 .idea/
+RevisionFolder/
+Weights/

@@ -6,24 +6,17 @@ import csv
 WD = os.getcwd()
 
 
-sents_prepared = WD + 'Data/prepared_sents.gz'
-sents_one_per_verb = WD + 'Data/one_per_verb_sents.csv'
-output = WD + 'Data/tagged_sentences.gz'
+sents_prepared = WD + '/Data/prepared_sents.gz'
+sents_one_per_verb = WD + '/Data/one_per_verb_sents.csv'
+output = WD + '/Data/tagged_sentences.gz'
 
 
 ######################################
 # Remove sentences with no articles
 ######################################
 def annotate():
-    sents = pd.read_csv(WD + 'Data/extracted_sentences.csv')
+    sents = pd.read_csv(WD + '/Data/extracted_sentences.csv')
     sents = sents[sents.num_verbs != 0]
-    sents['SentenceID'] = np.arange(1, (len(sents) + 1))
-
-    # Move the columns before the 'Sentence' column
-    cols = list(sents.columns)
-    cols.insert(0, cols.pop(cols.index('SentenceID')))
-    # sents = sents.ix[:, cols]
-    sents = sents.loc[:, cols]
 
     # Export the dataset
     sents.to_csv(sents_prepared, index=False)
@@ -38,14 +31,13 @@ def annotate():
     nA = int((nC - 5) / 4)  # number of verbs
     with open(sents_one_per_verb, mode='w') as file:
         csv_writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        heading = list(sents.columns[0:5])
+        heading = list(sents.columns[0:4])
         heading.extend(['verb', 'infinitive', 'araneum_tags', 'position'])
         csv_writer.writerow(heading)
         for i in range(0, nR):
-
             for j in range(1, (nA + 1)):
                 if str(sents.at[i, "".join(['verbs_', str(j)])]) != 'nan':
-                    colnames_touse = ['SentenceID', 'Sentence', 'num_verbs']
+                    colnames_touse = ['SentenceID', 'Sentence', 'sentence_length', 'num_verbs']
                     colnames_touse.extend([colname + str(j) for colname in ['verbs_']])
                     colnames_touse.extend([colname + str(j) for colname in ['verbs_lemmas_']])
                     colnames_touse.extend([colname + str(j) for colname in ['verbs_tags_']])

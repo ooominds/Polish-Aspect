@@ -17,7 +17,7 @@ def split(datapath, ndldatapath):
     g = data.groupby('TA_Tags')
     train = g.apply(lambda x: x.sample(frac=0.8).reset_index(drop=True))
     train.to_csv(ndldatapath + 'train_set.gz', index=False)
-    test = data.drop(train.index)
+    test = data[~data['SentenceID'].isin(train['SentenceID'].tolist())]
     test.to_csv(ndldatapath + 'test_set.gz', index=False)
 
 

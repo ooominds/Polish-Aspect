@@ -6,10 +6,10 @@ import pickle
 from sklearn.model_selection import train_test_split
 
 WD = os.getcwd()
-TAGGED = WD + 'Data/tagged_with_sie.gz'
-CORPUS = WD + 'Data/complete_corpus.gz'
-SAMPLE = WD + 'Data/sample.gz'
-PAIRS = WD + 'DownloadedData/aspectual_pairs.pickle'
+TAGGED = WD + '/Data/tagged_with_sie.gz'
+CORPUS = WD + '/Data/complete_corpus.gz'
+SAMPLE = WD + '/Data/sample.gz'
+PAIRS = WD + '/ndl_aspect/DataPreparation/DownloadedData/aspectual_pairs.pickle'
 
 
 def retrieve_superlemma(inf, pairs):
@@ -33,6 +33,7 @@ def remove_punc_generator(string):
 
 def extract_context(sent, pos):
     words = sent.split()
+    pos = str(pos)
     if len(pos.split()) == 1:
         pos = int(float(pos))
         context = words[:pos] + words[pos:]
@@ -52,13 +53,15 @@ def create_ngram_cues(s, n, sep_s=" ", sep_words="#", sep_ngrams='_'):
             s_ngrams.extend(list(ngrams(words, i)))
         return sep_ngrams.join([sep_words.join(ngram) for ngram in s_ngrams])
 
+def split_ta(ta):
+    return pd.Series(ta.split(".", 1))
 
 def prepare():
     with open(PAIRS, 'rb') as file:
         pairs = pickle.load(file)
 
     tagged = pd.read_csv(TAGGED)
-    tagged['SuperLemmas'] = tagged['infinitive'].apply(lambda x: retrieve_superlemma(x), axis=1)
+    tagged['SuperLemmas'] = tagged['infinitive'].apply(lambda x: retrieve_superlemma(x, pairs))
     tagged = tagged[tagged.SuperLemmas != 'NULL']
     tagged.to_csv(CORPUS, index=False)
 
@@ -73,7 +76,7 @@ def prepare():
     corpus = corpus[~corpus['SkipgramCues'].isnull()]
     corpus.to_csv(SAMPLE, index=False)
     gc.collect()
-
+    corpus[['Aspect', 'Tense']] = corpus['TA_Tags'].apply(split_ta)
     # corpus = corpus[corpus.SuperLemmas != 'NULL']
     corpus['Cues'] = corpus.apply(lambda x: '_'.join([x.loc['SkipgramCues'], x.loc['SuperLemmas'], x.loc['Tense'].upper()]),
                                   axis=1)
