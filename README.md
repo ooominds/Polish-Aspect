@@ -58,12 +58,14 @@ NOTE: The original lemma provided by Araneum did not take reflexive forms into a
 - Main file: TrainNDL.py - this script runs an NDL simulation on the chosen dataset (argument 1), using the cues of interest (argument 3), and produces a results file containing predicted aspect for each test sentence, and a weight file representing the association matrix of cues and outcomes.
 
 
+### Example Run
+- To run the code: python pipeline.py --STRATIFICATION --PATH_TO_LOCAL_CORPUS_FILE --TYPES_OF_CUES
+- python pipeline.py stratified araneum_sample.txt all
+
+
+
 ## contributors
 
-
-#### Example Run 
-- To run the code: python pipeline.py --STRATIFICATION --PATH_TO_LOCAL_CORPUS_FILE --TYPES_OF_CUES
--  python pipeline.py stratified araneum_sample.txt all
 This packages is based on code written for R by Adnane Ez-zizi - date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023.
 
 The tense-aspect annotation heuristics were provided by Dagmar Divjak.
