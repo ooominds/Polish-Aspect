@@ -7,7 +7,9 @@ import os
 
 WD = os.getcwd()
 TEMP_DIR = 'TempData'
-os.mkdir('TempData')
+isExist = os.path.exists(TEMP_DIR)
+if not isExist:
+    os.mkdir('TempData')
 NUM_THREADS = 4
 
 
