@@ -4,13 +4,17 @@ from collections import OrderedDict
 import numpy as np
 
 WD = os.getcwd()
-#os.mkdir('Data')
+isExist = os.path.exists('Data')
+if not isExist:
+    os.mkdir('Data')
 
 # araneum = sys.argv[2]
 output = WD + '/Data/extracted_sentences.csv'
 
+
 def add_length(sent):
     return len(sent.split())
+
 
 def extract(araneum):
     sents = OrderedDict()
@@ -101,7 +105,6 @@ def extract(araneum):
                 sentences_dict[i]["verbs_pos_{}".format(j + 1)] = features[1][j]
                 sentences_dict[i]["verbs_tags_{}".format(j + 1)] = features[2][j]
     sents = pd.DataFrame.from_dict(sentences_dict, orient="index")
-
 
     sents['sentence_length'] = sents.apply(lambda x: add_length(x.loc['Sentence']), axis=1)
 

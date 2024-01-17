@@ -67,10 +67,10 @@ def prepare(N):
     tagged = tagged[tagged.SuperLemmas != 'NULL']
     tagged.to_csv(CORPUS, index=False)
 
+    corpus = pd.read_csv(CORPUS)
     if N != 0:
-        corpus = pd.read_csv(CORPUS)
         corpus, _ = train_test_split(corpus, train_size=N, stratify=corpus[['infinitive']])
-        corpus.to_csv(SAMPLE, index=False)
+    corpus.to_csv(SAMPLE, index=False)
 
     corpus = pd.read_csv(SAMPLE)
     corpus['Context'] = corpus.apply(lambda x: extract_context(x.loc['Sentence'], x.loc['position']), axis=1)

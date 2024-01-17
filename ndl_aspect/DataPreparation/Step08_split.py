@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 
-
 WD = os.getcwd()
 
 
@@ -21,14 +20,16 @@ def split(datapath, ndldatapath):
     test.to_csv(ndldatapath + 'test_set.gz', index=False)
 
 
-
 def splitData(dataset_type):
     corpus = 'Data/sample.gz'
     if dataset_type == 'balanced':
         balanced_sample(corpus)
-        os.mkdir('BalancedNDLData/')
+        isExist = os.path.exists('BalancedNDLData/')
+        if not isExist:
+            os.mkdir('BalancedNDLData/')
         split('Data/balanced_sample.gz', 'BalancedNDLData/')
     else:
-        os.mkdir('NDLData/')
+        isExist = os.path.exists('NDLData/')
+        if not isExist:
+            os.mkdir('NDLData/')
         split(corpus, 'NDLData/')
-

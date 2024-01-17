@@ -137,11 +137,21 @@ def run(dataset_type, cues_type):
     test_file = TOP + folder + 'test_set.gz'
     cue_to_index = import_index_system(cue_index_file)
     outcome_index = import_index_system(outcome_index_file)
-    os.mkdir(weights_folder)
-    os.mkdir(weights_folder + subfolder)
-    os.mkdir(result_folder)
-    os.mkdir(result_folder + subfolder)
-    os.mkdir(folder+subfolder)
+    isExist = os.path.exists(weights_folder)
+    if not isExist:
+        os.mkdir(weights_folder)
+    isExist = os.path.exists(weights_folder + subfolder)
+    if not isExist:
+        os.mkdir(weights_folder + subfolder)
+    isExist = os.path.exists(result_folder)
+    if not isExist:
+        os.mkdir(result_folder)
+    isExist = os.path.exists(result_folder + subfolder)
+    if not isExist:
+        os.mkdir(result_folder + subfolder)
+    isExist = os.path.exists(folder+subfolder)
+    if not isExist:
+        os.mkdir(folder+subfolder)
     weights = train(train_events, weights_folder + subfolder, cue_to_index, outcome_index, folder + subfolder)
     predict(test_events, test_file, weights, outcome_index, result_folder + subfolder, 16, cue_to_index)
 
