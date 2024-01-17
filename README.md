@@ -7,18 +7,36 @@ A package for training an NDL model to learn aspect in Polish verbs using pyndl;
 To use this package, please install the dependencies via PyPI and then clone the GitHub repository.
 You can install the latest pip by typing "pip install pip".
 From a terminal, type "pip install ndl-aspect". 
+Then clone the repository found here: https://github.com/ooominds/Polish-Aspect
 
 ## pipeline
 
 The pipeline.py file (found in the GitHub repository) acts as a step-by-step guide to run the code from data preparation and annotation, to model simulations.
-The script requires three input arguments: the type of stratification of the data (specify 'balanced' for balanced dataset, else 'stratified' for frequency sampling); the path to the downloaded Araneum Polonicum, and the cues you want to include, choose from:
-- 'all'
-- 'superlemmas'
-- 'tenses'
-- 'ngrams_superlemmas'
-- 'superlemmas_tenses'
-- 'ngrams_tenses'
+The train your model, run
+```
+python pipeline.py --stratification <STRATIFICATION> --path_to_local_corpus <PATH_TO_LOCAL_CORPUS_FILE> --type_of_cues <TYPES_OF_CUES> --size_of_sample <SAMPLE_SIZE>
+```
+which requires three input arguments: 
+- `--stratification <STRATIFICATION>`: the type of stratification of the data (specify 'balanced' for balanced dataset, else 'stratified' for frequency sampling)
+- `--path_to_local_corpus <PATH_TO_LOCAL_CORPUS_FILE>`: the path to the downloaded Araneum Polonicum, and the cues you want to include, choose from:
+- `--type_of_cues <TYPES_OF_CUES>`: the cues you want to include, choose from:
+  - 'all'
+  - 'superlemmas'
+  - 'tenses'
+  - 'ngrams_superlemmas'
+  - 'superlemmas_tenses'
+  - 'ngrams_tenses'
+- `--size_of_sample <SAMPLE_SIZE>`: size of Araneum sample, leave unspecified if you wish to use the whole corpus (NOTE: we used a sample of 10,000,000)
 
+To run the script, uncomment each step in order. Each step relies on the output from the previous one. You can choose to uncomment all and run all steps in a single job, or run each step separately, depending on your set-up and size of corpus. 
+- To run the code: 
+- Example call:
+
+```
+cd Polish-Aspect/
+python pipeline.py --path_to_local_corpus 'araneum_sample.txt' --stratification 'stratified'  --type_of_cues 'all' --size_of_sample '18'
+
+```
 ### Data Preparation
 #### Step I: Create sentences file from corpus file with verb tags 
  - Main File: Step01_extract_sentences.py - requires the path to the corpus (not provided with the package due to licensing)
@@ -58,9 +76,7 @@ NOTE: The original lemma provided by Araneum did not take reflexive forms into a
 - Main file: TrainNDL.py - this script runs an NDL simulation on the chosen dataset (argument 1), using the cues of interest (argument 3), and produces a results file containing predicted aspect for each test sentence, and a weight file representing the association matrix of cues and outcomes.
 
 
-### Example Run
-- To run the code: python pipeline.py --STRATIFICATION --PATH_TO_LOCAL_CORPUS_FILE --TYPES_OF_CUES
-- python pipeline.py stratified araneum_sample.txt all
+
 
 
 

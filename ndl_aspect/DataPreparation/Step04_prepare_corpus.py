@@ -53,10 +53,12 @@ def create_ngram_cues(s, n, sep_s=" ", sep_words="#", sep_ngrams='_'):
             s_ngrams.extend(list(ngrams(words, i)))
         return sep_ngrams.join([sep_words.join(ngram) for ngram in s_ngrams])
 
+
 def split_ta(ta):
     return pd.Series(ta.split(".", 1))
 
-def prepare():
+
+def prepare(N):
     with open(PAIRS, 'rb') as file:
         pairs = pickle.load(file)
 
@@ -65,9 +67,10 @@ def prepare():
     tagged = tagged[tagged.SuperLemmas != 'NULL']
     tagged.to_csv(CORPUS, index=False)
 
-    corpus = pd.read_csv(CORPUS)
-    corpus, _ = train_test_split(corpus, train_size=10000000, stratify=corpus[['infinitive']])
-    corpus.to_csv(SAMPLE, index=False)
+    if N != 0:
+        corpus = pd.read_csv(CORPUS)
+        corpus, _ = train_test_split(corpus, train_size=N, stratify=corpus[['infinitive']])
+        corpus.to_csv(SAMPLE, index=False)
 
     corpus = pd.read_csv(SAMPLE)
     corpus['Context'] = corpus.apply(lambda x: extract_context(x.loc['Sentence'], x.loc['position']), axis=1)
@@ -78,8 +81,9 @@ def prepare():
     gc.collect()
     corpus[['Aspect', 'Tense']] = corpus['TA_Tags'].apply(split_ta)
     # corpus = corpus[corpus.SuperLemmas != 'NULL']
-    corpus['Cues'] = corpus.apply(lambda x: '_'.join([x.loc['SkipgramCues'], x.loc['SuperLemmas'], x.loc['Tense'].upper()]),
-                                  axis=1)
+    corpus['Cues'] = corpus.apply(
+        lambda x: '_'.join([x.loc['SkipgramCues'], x.loc['SuperLemmas'], x.loc['Tense'].upper()]),
+        axis=1)
     corpus.drop(columns=['SkipgramCues', 'Context'], inplace=True)
     print('length after skipgrams:')
     print(len(corpus))
