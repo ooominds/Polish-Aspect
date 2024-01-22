@@ -14,7 +14,7 @@ Then clone the repository found here: https://github.com/ooominds/Polish-Aspect
 The pipeline.py file (found in the GitHub repository) acts as a step-by-step guide to run the code from data preparation and annotation, to model simulations.
 The train your model, run
 ```
-python pipeline.py --stratification <STRATIFICATION> --path_to_local_corpus <PATH_TO_LOCAL_CORPUS_FILE> --type_of_cues <TYPES_OF_CUES> --size_of_sample <SAMPLE_SIZE>
+python pipeline.py --stratification <STRATIFICATION> --path_to_local_corpus <PATH_TO_LOCAL_CORPUS_FILE> --type_of_cues <TYPES_OF_CUES> --size_of_sample <SAMPLE_SIZE> --num_threads <NUM_THREADS>
 ```
 which requires three input arguments: 
 - `--stratification <STRATIFICATION>`: the type of stratification of the data (specify 'balanced' for balanced dataset, else 'stratified' for frequency sampling)
@@ -27,6 +27,7 @@ which requires three input arguments:
   - 'superlemmas_tenses'
   - 'ngrams_tenses'
 - `--size_of_sample <SAMPLE_SIZE>`: size of Araneum sample, leave unspecified if you wish to use the whole corpus (NOTE: we used a sample of 10,000,000)
+- `--num_threads <NUM_THREADS>`: number of threads, leave unspeficied for default 4
 
 To run the script, uncomment each step in order. Each step relies on the output from the previous one. You can choose to uncomment all and run all steps in a single job, or run each step separately, depending on your set-up and size of corpus. 
 - To run the code: 
