@@ -10,7 +10,7 @@ TEMP_DIR = 'TempData'
 isExist = os.path.exists(TEMP_DIR)
 if not isExist:
     os.mkdir('TempData')
-NUM_THREADS = 4
+#NUM_THREADS = 4
 
 
 def remove_punc_generator(string):
@@ -77,19 +77,19 @@ def compute_cue_freqs(data, temp_dir, num_threads, verbose=False):
     return cue_freqs_df
 
 
-def extract_ngrams():
+def extract_ngrams(NUM_THREADS):
     sents = pd.read_csv('Data/sample.gz')
     sents['Context'] = sents.apply(lambda x: extract_context(x.loc['Sentence'], x.loc['position']), axis=1)
     sents = sents.rename(columns={"Context":"cues", "Aspect": "outcomes"})
     sents = sents[["cues", "outcomes"]]
     sents_1gram = create_ngram_event_df_file(sents, 1, sep_words="#")
-    ngram_freqs1 = compute_cue_freqs(sents_1gram, TEMP_DIR, num_threads=4, verbose=True)
+    ngram_freqs1 = compute_cue_freqs(sents_1gram, TEMP_DIR, NUM_THREADS, verbose=True)
     #len(ngram_freqs1[ngram_freqs1['frequency'] >= 10])
     ngram_freqs1.to_csv('Data/1gram.csv', sep=',', index=False)
     del ngram_freqs1, sents_1gram
     gc.collect()
     sents_2gram = create_ngram_event_df_file(sents, 2, sep_words="#")
-    ngram_freqs2 = compute_cue_freqs(sents_2gram, TEMP_DIR, num_threads=4, verbose=True)
+    ngram_freqs2 = compute_cue_freqs(sents_2gram, TEMP_DIR, NUM_THREADS, verbose=True)
     #len(ngram_freqs2[ngram_freqs2['frequency'] >= 10])
     ngram_freqs2.to_csv('Data/2gram.csv', sep=',', index=False)
     del ngram_freqs2, sents_2gram
@@ -97,14 +97,14 @@ def extract_ngrams():
 
 
     sents_3gram = create_ngram_event_df_file(sents, 3, sep_words="#")
-    ngram_freqs3 = compute_cue_freqs(sents_3gram, TEMP_DIR, num_threads=4, verbose=True)
+    ngram_freqs3 = compute_cue_freqs(sents_3gram, TEMP_DIR, NUM_THREADS, verbose=True)
     #len(ngram_freqs3[ngram_freqs3['frequency'] >= 10])
     ngram_freqs3.to_csv('Data/3gram.csv', sep=',', index=False)
     del ngram_freqs3, sents_3gram
     gc.collect()
 
     sents_4grams = create_ngram_event_df_file(sents, 4, sep_words="#")
-    ngram_freqs4 = compute_cue_freqs(sents_4grams, TEMP_DIR, num_threads=16, verbose=True)
+    ngram_freqs4 = compute_cue_freqs(sents_4grams, TEMP_DIR, NUM_THREADS, verbose=True)
     #len(ngram_freqs4[ngram_freqs4['frequency'] >= 10])
     ngram_freqs4.to_csv('Data/4gram.gz', sep=',', index=False)
     del ngram_freqs4
