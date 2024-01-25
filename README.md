@@ -1,6 +1,6 @@
 # Polish-Aspect
 
-A package for training an NDL model to learn aspect in Polish verbs using pyndl; it can also be used to convert NKJP tags in Tense and Aspect tags. 
+A package for training an NDL model to learn verbal aspect in Polish using pyndl; it can also be used to convert NKJP tags into Tense and Aspect tags. 
 
 ## installation
 
@@ -83,8 +83,8 @@ NOTE: The original lemma provided by Araneum did not take reflexive forms into a
 
 ## contributors
 
-This packages is based on code written for R by Adnane Ez-zizi - date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023.
+This packages is based on code written for R by Adnane Ez-zizi; date of last change 06/08/2020. This code was corrected, updated and adapted as a Python package by Irene Testini, completed January 2023.
 
-The tense-aspect annotation heuristics were provided by Dagmar Divjak.
+The tense-aspect annotation heuristics were written by Dagmar Divjak; their performance was manually checked on 1000-verb samples.
 
 Work by all contributors was funded by Leverhulme Trust Leadership Award RL-2016-001 to Dagmar Divjak.
